@@ -161,7 +161,7 @@ Vehicle-Tilt-Roll-Monitor/
 - Added linker flag for float support
 - Float values now display correctly in serial terminal
 
----
+
 
 
 ---
@@ -193,11 +193,11 @@ Vehicle-Tilt-Roll-Monitor/
 
 ##  Future Improvements
 
-- [ ] **Gyroscope Integration**: Implement complementary filter combining accelerometer and gyroscope for drift-free angle tracking
-- [ ] **CAN Bus Communication**: Interface with other vehicle ECUs to demonstrate automotive networking
-- [ ] **FreeRTOS Integration**: Multi-task architecture with separate priorities for sensor, display, and control
-- [ ] **Data Logging**: Save tilt events and statistics to flash memory
-- [ ] **Predictive Algorithm**: Calculate roll rate (°/s) to detect rollover earlier
+- **Gyroscope Integration**: Implement complementary filter combining accelerometer and gyroscope for drift-free angle tracking
+-  **CAN Bus Communication**: Interface with other vehicle ECUs to demonstrate automotive networking
+-  **FreeRTOS Integration**: Multi-task architecture with separate priorities for sensor, display, and control
+-  **Data Logging**: Save tilt events and statistics to flash memory
+-  **Predictive Algorithm**: Calculate roll rate (°/s) to detect rollover earlier
 
 ##  Skills Developed
 ### Technical Skills
