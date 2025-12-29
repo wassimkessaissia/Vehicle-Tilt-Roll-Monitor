@@ -134,7 +134,37 @@ Vehicle-Tilt-Roll-Monitor/
 ###  Demo Video
 
 [Watch Video](Demo_video/Demo.mp4)
+## Challenges & Solutions
 
+### Challenge 1: Sensor Drift and Noise
+**Problem:** Raw accelerometer readings showed ±100 units of noise even when stationary, causing unstable angle calculations.
+
+**Solution:**
+- Implemented 1000-sample calibration routine with offset compensation
+- Used 32-bit accumulators to prevent overflow during averaging
+- Added 2ms delay between samples to ensure fresh data
+
+### Challenge 2: State Oscillation at Thresholds
+**Problem:** When roll angle hovered around thresholds (e.g., 15°), the system rapidly switched between states, causing LED/buzzer flicker.
+
+**Solution:**
+- Implemented hysteresis with 2° gap (e.g., 17° to enter WARNING, 13° to return to STABLE)
+- State machine remembers previous state to make intelligent transitions
+- Eliminated flickering and created smooth, professional behavior
+
+
+### Challenge 3: Printf Float Formatting
+**Problem:** Printf showed garbage characters (`Â°`) instead of float values due to missing float support in newlib-nano.
+
+**Solution:**
+- Enabled "Use float with printf from newlib-nano" in MCU settings
+- Added linker flag for float support
+- Float values now display correctly in serial terminal
+
+---
+
+
+---
 ###  Key Technical Details
 
 **MPU6500 Driver:**
@@ -158,7 +188,33 @@ Vehicle-Tilt-Roll-Monitor/
 - **Update Rate:** 10 Hz
 - **Angle Accuracy:** ±0.5°
 - **State Transition Time:** < 100ms
-- **Calibration Time:** 20 seconds
+- **Calibration Time:** 20 second
+
+
+##  Future Improvements
+
+- [ ] **Gyroscope Integration**: Implement complementary filter combining accelerometer and gyroscope for drift-free angle tracking
+- [ ] **CAN Bus Communication**: Interface with other vehicle ECUs to demonstrate automotive networking
+- [ ] **FreeRTOS Integration**: Multi-task architecture with separate priorities for sensor, display, and control
+- [ ] **Data Logging**: Save tilt events and statistics to flash memory
+- [ ] **Predictive Algorithm**: Calculate roll rate (°/s) to detect rollover earlier
+
+##  Skills Developed
+### Technical Skills
+ **I2C Communication**: Custom MPU6500 driver built from scratch  
+ **Sensor Calibration**: 1000-sample averaging with offset compensation  
+**State Machine Design**: 4-state system with hysteresis anti-oscillation  
+ **Real-Time Systems**: Non-blocking timing with multi-peripheral coordination  
+ **PWM Motor Control**: Dynamic duty cycle adjustment (100% → 0%)  
+
+### Engineering Practices
+ **Modular Design**: Separated driver code from application logic  
+**Problem Solving**: Overcame sensor noise, state oscillation, and timing challenges  
+
+### Automotive Context
+ **Safety-Critical Systems**: Progressive intervention and multi-level warnings  
+ **ESC Concepts**: Roll angle monitoring and stability control simulation  
+
 
 ---
 
